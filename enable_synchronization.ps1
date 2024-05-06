@@ -4,3 +4,12 @@ if ([System.Environment]::GetEnvironmentVariable('CLEANER_STATUS', 'Machine')) {
 } else {
     Write-Output "CLEANER_STATUS does not exist."
 }
+
+$remoteDesktopCleanerProcess = Get-Process | Where-Object {$_.Path -like "*RemoteDesktopCleaner.exe*"}
+
+if ($remoteDesktopCleanerProcess) {
+    Stop-Process -Name "RemoteDesktopCleaner" -Force
+    Write-Output "RemoteDesktopCleaner process has been stopped."
+} else {
+    Write-Output "RemoteDesktopCleaner process is not running."
+}
